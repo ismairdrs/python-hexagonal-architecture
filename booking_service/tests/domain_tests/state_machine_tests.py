@@ -23,3 +23,9 @@ class TestStateMachine(TestCase):
         booking.change_state(Action.PAY)
         booking.change_state(Action.FINISH)
         self.assertEqual(booking.status, Status.FINISHED)
+
+    def test_should_set_status_to_refunded_when_refounding_booking_with_paid_status(self):
+        booking = Booking()
+        booking.change_state(Action.PAY)
+        booking.change_state(Action.REFOUND)
+        self.assertEqual(booking.status, Status.REFUNDED)

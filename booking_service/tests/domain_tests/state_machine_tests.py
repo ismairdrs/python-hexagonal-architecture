@@ -35,3 +35,8 @@ class TestStateMachine(TestCase):
         booking.status = Status.CANCELED
         booking.change_state(Action.REOPEN)
         self.assertEqual(booking.status, Status.CREATED)
+
+    def test_should_not_change_status_when_refounding_a_booking_with_created_status(self):
+        booking = Booking()
+        booking.change_state(Action.REFOUND)
+        self.assertEqual(booking.status, Status.CREATED)

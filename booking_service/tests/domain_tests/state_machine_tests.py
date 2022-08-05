@@ -40,3 +40,10 @@ class TestStateMachine(TestCase):
         booking = Booking()
         booking.change_state(Action.REFOUND)
         self.assertEqual(booking.status, Status.CREATED)
+
+    def test_should_not_change_status_when_refounding_a_finished_booking(self):
+        booking = Booking()
+        booking.change_state(Action.PAY)
+        booking.change_state(Action.FINISH)
+        booking.change_state(Action.REFOUND)
+        self.assertEqual(booking.status, Status.FINISHED)

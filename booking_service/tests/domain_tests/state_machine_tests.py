@@ -12,3 +12,8 @@ class TestStateMachine(TestCase):
         booking = Booking()
         booking.change_state(Action.PAY)
         self.assertEqual(booking.status, Status.PAID)
+
+    def test_should_set_status_to_canceled_when_canceling_booking_with_created_status(self):
+        booking = Booking()
+        booking.change_state(Action.CANCEL)
+        self.assertEqual(booking.status, Status.CANCELED)

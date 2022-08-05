@@ -21,3 +21,17 @@ class Booking:
         if value not in Status:
             raise ValueError(f'Invalid status: {value}')
         self._status = value
+
+    def change_state(self, action: Action):
+        if action not in Action:
+            raise ValueError(f'Invalid action: {action}')
+
+        set_state = {
+            (Status.CREATED, Action.PAY): Status.PAID,
+            (Status.CREATED, Action.CANCEL): Status.CANCELED,
+            (Status.PAID, Action.FINISH): Status.FINISHED,
+            (Status.PAID, Action.REFOUND): Status.REFUNDED,
+            (Status.CANCELED, Action.REOPEN): Status.CREATED,
+        }
+
+        self.status = set_state.get((self.status, action), self._status)

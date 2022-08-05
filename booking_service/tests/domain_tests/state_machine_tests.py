@@ -17,3 +17,9 @@ class TestStateMachine(TestCase):
         booking = Booking()
         booking.change_state(Action.CANCEL)
         self.assertEqual(booking.status, Status.CANCELED)
+
+    def test_should_set_status_to_finished_when_finishing_booking_with_paid_status(self):
+        booking = Booking()
+        booking.change_state(Action.PAY)
+        booking.change_state(Action.FINISH)
+        self.assertEqual(booking.status, Status.FINISHED)
